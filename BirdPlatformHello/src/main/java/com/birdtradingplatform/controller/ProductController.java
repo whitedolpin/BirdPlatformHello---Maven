@@ -194,12 +194,12 @@ public class ProductController extends HttpServlet {
                         colSortPresent = "Price: High to Low";
                         break;
                     default:
-                        colSort = "star";
+                        colSort = "rating";
                         colSortPresent = "Favorite Product";
                         break;
                 }
             } catch (Exception e) {
-                colSort = "star";
+                colSort = "rating";
                 colSortPresent = "Favorite Product";
             }
 

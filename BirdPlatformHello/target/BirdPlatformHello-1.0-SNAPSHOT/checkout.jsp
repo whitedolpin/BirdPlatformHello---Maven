@@ -34,7 +34,7 @@
         <link rel="stylesheet" href="css/checkout.css" />
     </head>
     <body>
-        <jsp:include page="pageHeader.jsp"></jsp:include>
+        <%@include file="pageHeader.jsp" %>
 
         <!-- heading section start -->
 
@@ -269,7 +269,7 @@
 
 
         <!-- footer section start  -->
-        <jsp:include page="pageFooter.jsp"></jsp:include>
+        <%@include file="pageFooter.jsp" %>
         <!-- footer section end  -->
 
         <script src="js/script.js"></script>

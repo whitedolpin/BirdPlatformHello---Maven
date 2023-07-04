@@ -969,7 +969,77 @@ public class ProductDAO {
         System.out.println(products.size());
     }
 
-    public List<Product> getShopProductListByPage(String shopID, String search, int productPerPage, int curPage, String colSort, String category) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public List<Product> getShopProductListByPage(String shopID, String search, int productPerPage, int curPage, String colSort, String category) throws SQLException {
+        List<Product> productList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBHelper.makeConnection();
+            if (conn != null) {
+                String sql;
+                if (category.isEmpty()) {
+                    sql = "select * from Product "
+                            + " where shopID =? and (productName  like ? or description like ?) "
+                            + " order by  " + colSort
+                            + " offset " + (curPage - 1) * productPerPage + "  rows  "
+                            + " fetch next ? rows only";
+
+                    pstm = conn.prepareStatement(sql);
+                    pstm.setString(1, shopID);
+                    pstm.setString(2, "%" + search + "%");
+                    pstm.setString(3, "%" + search + "%");
+                    pstm.setInt(4, productPerPage);
+                } else {
+                    sql = "select * from Product "
+                            + " where shopID =? and category = ? and (productName  like ? or description like ?) "
+                            + " order by  " + colSort
+                            + " offset " + (curPage - 1) * productPerPage + "  rows  "
+                            + " fetch next ? rows only";
+
+                    pstm = conn.prepareStatement(sql);
+                    pstm.setString(1, shopID);
+                    pstm.setString(2, category);
+                    pstm.setString(3, "%" + search + "%");
+                    pstm.setString(4, "%" + search + "%");
+                    pstm.setInt(5, productPerPage);
+                }
+
+                rs = pstm.executeQuery();
+                while (rs.next()) {
+                    productList.add(new Product(rs.getInt("productID"),
+                            rs.getString("productName"),
+                            rs.getDouble("priceIn"),
+                            rs.getString("type"),
+                            rs.getString("category"),
+                            rs.getInt("quantity"),
+                            rs.getString("description"),
+                            rs.getString("status"),
+                            rs.getString("img"),
+                            rs.getString("rating"),
+                            null,
+                            rs.getDouble("priceOut"),
+                            rs.getDouble("pSale"), ""));
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return productList;
     }
 }
+
+
+

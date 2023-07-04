@@ -51,7 +51,7 @@ public class CheckOutController extends HttpServlet {
         String redirect = (String) request.getAttribute("redirect");
         if ("addaddress".equals(redirect)) {
             HttpSession session = request.getSession();
-            Account account = (Account) session.getAttribute("USERDTOBYUSERNAME");           
+            Account account = (Account) session.getAttribute("dto");           
             CustomerDAO cusDAO = new CustomerDAO();
             Customer customer = cusDAO.getCustomerByAccountID(account.getAccountID());
             if (customer == null) {

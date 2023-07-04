@@ -262,7 +262,11 @@ public class CustomerDAO implements Serializable{
         }
         return shipTo;
     }
-
+    public static void main(String[] args) throws SQLException {
+        CustomerDAO dao = new CustomerDAO();
+      List<AddressShipment> customers = dao.getAddressShipmentByCusID(2);
+        System.out.println(customers.size());
+    }
        
     
 }

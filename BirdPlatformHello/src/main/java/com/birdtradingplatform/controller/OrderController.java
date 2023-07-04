@@ -55,7 +55,7 @@ public class OrderController extends HttpServlet {
             HttpSession session = request.getSession();
             String status = request.getParameter("status");
             //get account login in this session with attribute name is LOGIN_ACCOUNT
-            Account account = (Account) session.getAttribute("USERDTOBYUSERNAME");
+            Account account = (Account) session.getAttribute("dto");
             if (account == null) {
                 request.getRequestDispatcher("Login.jsp").include(request, response);
             }
@@ -85,7 +85,7 @@ public class OrderController extends HttpServlet {
 
         } else if ("Order".equals(action)) {
             HttpSession session = request.getSession();
-            Account account = (Account) session.getAttribute("USERDTOBYUSERNAME");
+            Account account = (Account) session.getAttribute("dto");
             int addressID;
             AddressShipment addressShipment;
             if (account == null) {

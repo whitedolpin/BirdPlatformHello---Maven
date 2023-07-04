@@ -12,7 +12,7 @@
         <jsp:include page='product'/>
 
     </c:if>
-    
+
 </c:if>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,22 +81,22 @@
 
                     <div class="slide active">
                         <div class="content">
-                            <span>xxxxxxxxxxxxxx</span>
-                            <h3>xxxxxxxxxxxxxx</h3>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero, magni harum cupiditate perferendis expedita pariatur?</p>
-                            <a href="#" class="btn">shop now</a>
+                            <span>Best Choice</span>
+                            <h3>Find your pet.</h3>
+                            <p>Do you need a new pet or best food for your pet?</p>
+                            <a href="shop.html" class="btn">shop now</a>
                         </div>
                         <div class="image">
-                            <img id="FixNow" src="img/home-img-1.png" alt="">
+                            <img src="img/home-img-1.png" alt="">
                         </div>
                     </div>
 
                     <div class="slide">
                         <div class="content">
-                            <span>xxxxxxxxxxxxxxxxxxxx</span>
-                            <h3>xxxxxxxxxxxx</h3>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero, magni harum cupiditate perferendis expedita pariatur?</p>
-                            <a href="#" class="btn">shop now</a>
+                            <span>Best Choice</span>
+                            <h3>Help your live is happy.</h3>
+                            <p>Do you need a new pet or best food for your pet?</p>
+                            <a href="shop.html" class="btn">shop now</a>
                         </div>
                         <div class="image">
                             <img src="img/home-img-2.png" alt="">
@@ -109,6 +109,7 @@
                 <div id="slide-prev" onclick="prev()" class="ri-arrow-left-line"></div>
             </section>
 
+
             <!-- home section ends -->
 
 
@@ -120,8 +121,8 @@
                     <img src="img/banner-1.jpg" alt="">
                     <div class="content">
                         <span>limited offer</span>
-                        <h3>upto 50% off</h3>
-                        <a href="#" class="btn">shop now</a>
+                        <h3>Up to 50% off</h3>
+                        <a href="saleListController" class="btn">shop now</a>
                     </div>
                 </div>
 
@@ -129,8 +130,8 @@
                     <img src="img/banner-2.jpg" alt="">
                     <div class="content">
                         <span>limited offer</span>
-                        <h3>upto 50% off</h3>
-                        <a href="#" class="btn">shop now</a>
+                        <h3>Up to 50% off</h3>
+                        <a href="saleListController" class="btn">shop now</a>
                     </div>
                 </div>
 
@@ -138,8 +139,8 @@
                     <img src="img/banner-3.jpg" alt="">
                     <div class="content">
                         <span>limited offer</span>
-                        <h3>upto 50% off</h3>
-                        <a href="#" class="btn">shop now</a>
+                        <h3>Up to 50% off</h3>
+                        <a href="saleListController" class="btn">shop now</a>
                     </div>
                 </div>
 
@@ -147,14 +148,14 @@
 
             <!-- banner section ends -->
 
-<!-- products section start -->
+            <!-- products section start -->
 
 
-      <section class="products">
-            <h1 class="title"> 
-                <span>Best Sellers</span> 
-            </h1>
-            <c:if test="${requestScope.bestSellerList!=null}">
+            <section class="products">
+                <h1 class="title"> 
+                    <span>Best Sellers</span> 
+                </h1>
+            <c:if test="${requestScope.bestSellerList!= null}">
                 <c:if test="${not empty requestScope.bestSellerList}">
 
                     <div class="box-container">
@@ -193,29 +194,29 @@
         <!-- products section end -->
 
         <!-- paging section start -->
-    <c:if test="${requestScope.totalpage >1}">
-        <div class="pagination">
-            <c:if test="${requestScope.currentpage>1}">
-                <a href="product?prev=home&curPage=${requestScope.currentpage-1}&currentpagenew=${requestScope.currentpagenew}" class="prev">Previous</a>
+        <c:if test="${requestScope.totalpage >1}">
+            <div class="pagination">
+                <c:if test="${requestScope.currentpage>1}">
+                    <a href="product?prev=home&curPage=${requestScope.currentpage-1}&currentpagenew=${requestScope.currentpagenew}" class="prev">Previous</a>
 
-            </c:if>
-            <c:forEach var="page" begin="1" end="${requestScope.totalpage}">
-                <c:if test="${requestScope.currentpage==pageScope.page}">
-
-                    <a style="background-color: #e1cec7"  href="product?prev=home&curPage=${pageScope.page}&currentpagenew=${requestScope.currentpagenew}">${page}</a>
                 </c:if>
-                <c:if test="${requestScope.currentpage!=pageScope.page}">
-                    <a href="product?prev=home&curPage=${pageScope.page}&currentpagenew=${requestScope.currentpagenew}">${page}</a>                        
+                <c:forEach var="page" begin="1" end="${requestScope.totalpage}">
+                    <c:if test="${requestScope.currentpage==pageScope.page}">
+
+                        <a style="background-color: #e1cec7"  href="product?prev=home&curPage=${pageScope.page}&currentpagenew=${requestScope.currentpagenew}">${page}</a>
+                    </c:if>
+                    <c:if test="${requestScope.currentpage!=pageScope.page}">
+                        <a href="product?prev=home&curPage=${pageScope.page}&currentpagenew=${requestScope.currentpagenew}">${page}</a>                        
+                    </c:if>
+
+
+                </c:forEach>
+                <c:if test="${requestScope.currentpage<requestScope.totalpage}">
+                    <a href="product?prev=home&curPage=${requestScope.currentpage+1}&currentpagenew=${requestScope.currentpagenew}" class="next">Next</a>
                 </c:if>
 
-
-            </c:forEach>
-            <c:if test="${requestScope.currentpage<requestScope.totalpage}">
-                <a href="product?prev=home&curPage=${requestScope.currentpage+1}&currentpagenew=${requestScope.currentpagenew}" class="next">Next</a>
-            </c:if>
-
-        </div>
-    </c:if>
+            </div>
+        </c:if>
         <section class="products">
             <h1 class="title"> <span>New Items</span> </h1>
             <c:if test="${requestScope.newList!=null}">

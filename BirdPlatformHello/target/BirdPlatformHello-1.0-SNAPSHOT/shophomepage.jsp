@@ -289,7 +289,7 @@
 
 
         <!-- footer section start  -->
-        <%@include file="footer.jsp" %>
+         <jsp:include page="pageFooter.jsp"></jsp:include>
         <!-- footer section end  -->
 
         <!-- custom js file link  -->
