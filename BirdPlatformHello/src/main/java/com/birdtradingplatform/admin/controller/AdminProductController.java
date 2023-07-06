@@ -7,13 +7,13 @@ package com.birdtradingplatform.admin.controller;
 import com.birdtradingplatform.dao.ProductDAO;
 import com.birdtradingplatform.model.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Minh Quan
  */
+@WebServlet(name = "AdminProductController", urlPatterns = {"/AdminProductController"})
 public class AdminProductController extends HttpServlet {
 
     /**
@@ -33,7 +34,7 @@ public class AdminProductController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "product.jsp";
@@ -59,13 +60,13 @@ public class AdminProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       try {
+           processRequest(request, response);
+       } catch (ClassNotFoundException ex) {
+           Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (SQLException ex) {
+           Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
 
     /**
@@ -79,13 +80,13 @@ public class AdminProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       try {
+           processRequest(request, response);
+       } catch (ClassNotFoundException ex) {
+           Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (SQLException ex) {
+           Logger.getLogger(AdminProductController.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
 
     /**
