@@ -5,6 +5,7 @@
  */
 package com.birdtradingplatform.controller;
 
+
 import com.birdtradingplatform.dao.AccountDAO;
 import com.birdtradingplatform.model.Account;
 import com.birdtradingplatform.utils.Utils;
@@ -42,66 +43,68 @@ public class SignUP extends HttpServlet {
         String url = "SignUpErr.jsp";
         Boolean err = false;
         System.out.println("sing up controkker");
-        try {
-            String userName = request.getParameter("name");
-            String email = request.getParameter("email");
-            String pass = request.getParameter("pass");
-            String confirm = request.getParameter("re_pass");
-            String role = request.getParameter("roleRegist");
-            int roleSave = 1;
-
-            if (userName.trim().isEmpty()) {
-                err = true;
-                request.setAttribute("NameERR", true);
-            }
-
-            if (email.trim().isEmpty()) {
-                err = true;
-                request.setAttribute("EmailERR", true);
-            }
-
-            if (pass.trim().isEmpty()) {
-                err = true;
-                request.setAttribute("PassERR", true);
-            }
-
-            if (confirm.trim().isEmpty()) {
-                err = true;
-                request.setAttribute("ConfirmERR", true);
-            }
-
-            if (!pass.equalsIgnoreCase(confirm)) {
-                err = true;
-                request.setAttribute("MatchERR", true);
-            }
-
+        try  {
+           String userName = request.getParameter("name");
+           String email = request.getParameter("email");
+           String pass = request.getParameter("pass");
+           String confirm = request.getParameter("re_pass");
+           String role = request.getParameter("roleRegist");
+           int roleSave = 1;
+           
+           if(userName== null){
+               err= true;
+               request.setAttribute("NameERR", true);
+           }
+           
+           if(email== null){
+               err= true;
+               request.setAttribute("EmailERR", true);
+           }
+           
+           if(pass== null){
+               err= true;
+               request.setAttribute("PassERR", true);
+           }
+       
+           if(confirm== null){
+               err= true;
+               request.setAttribute("ConfirmERR", true);
+           }
+           
+           if(!pass.equalsIgnoreCase(confirm)){
+               err= true;
+               request.setAttribute("MatchERR", true);
+           }
+           
             AccountDAO dao = new AccountDAO();
             Account checkEmail = dao.CheckLoginbyGmail(email);
-
-            if (checkEmail != null) {
-                err = true;
-                request.setAttribute("DuplicatedERR", true);
-            }
-            if (role != null) {
-                roleSave = 3;
-                System.out.println("Sign up an Shop account");
-            }
-
-            if (err == false) {
-
-                pass = Utils.hashString(pass);
-                Account save = new Account(1, userName, email, pass, roleSave, false, "",
-                        "https://i.pinimg.com/564x/2f/e6/a5/2fe6a575ad7b7baabf6dd536b1496a50.jpg");
-                dao.SaveUser(save);
-                url = "Login.jsp";
-            }
-
-            if (roleSave == 3 && err == false) {
-                request.setAttribute("GMAIL", email);
-                url = "ShopInfo.jsp";
-            }
-
-        } finally {
+           
+           
+           if(checkEmail != null){
+               err= true;
+               request.setAttribute("DuplicatedERR", true);
+           }
+           if(role!=null){
+               roleSave=3;
+               System.out.println("Sign up an Shop account");
+           }
+           
+           if (err==false){
+               
+               pass = Utils.hashString(pass);
+               Account save = new Account (1, userName, email, pass, roleSave, false,"",
+                       "https://i.pinimg.com/564x/2f/e6/a5/2fe6a575ad7b7baabf6dd536b1496a50.jpg");
+               dao.SaveUser(save);
+               url = "Login.jsp";
+           }
+           
+           if(roleSave ==3 && err == false){
+               request.setAttribute("GMAIL", email);
+               url= "ShopInfo.jsp";
+           }
+           
+           
+        } finally{
             request.setAttribute("ERR", err);
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

@@ -16,6 +16,7 @@
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="./css/changePass.css">
+    <link rel="stylesheet" href="css/loading.css">
     <script src="./js/sendMail.js"></script>
 
         <script type="text/javascript"
@@ -23,7 +24,7 @@
         </script>
         <script type="text/javascript">
             (function () {
-                emailjs.init("80C9sLJ3eH1DEGjTk");
+                emailjs.init("bxlqMpyo4vRWXxJJz");
             })();
         </script>
 </head>
@@ -76,7 +77,7 @@
 
 
 
-
+    <jsp:include page="LoadingAnimationCover.jsp"></jsp:include>
     <!-- footer section start  -->
     <jsp:include page="pageFooter.jsp"></jsp:include>
     <!-- footer section end  -->

@@ -47,7 +47,7 @@ public class AddressShipController extends HttpServlet {
             String detail = request.getParameter("detail");
             String district = request.getParameter("district");
             String province = request.getParameter("province");
-            Account account = (Account) session.getAttribute("USERDTOBYUSERNAME");
+            Account account = (Account) session.getAttribute("dto");
 
             if (account == null) {
                 request.getRequestDispatcher("Login.jsp").include(request, response);
@@ -56,7 +56,20 @@ public class AddressShipController extends HttpServlet {
             Customer customer = cusDAO.getCustomerByAccountID(account.getAccountID());
             AddressShipmentDAO adao = new AddressShipmentDAO();
             int row = adao.addAddressShip(phone, detail, district, province, customer.getCustomerID());
-            request.setAttribute("redirect", "addaddress");
+            request.setAttribute("redirect", "modifyaddress");
+            request.getRequestDispatcher("checkout").forward(request, response);
+        }
+        else if ("removeaddress".equals(action)) {
+            String addressShipID = request.getParameter("addressShipID");          
+            
+            AddressShipmentDAO adao = new AddressShipmentDAO();
+            int row = adao.deleteAddressShip(addressShipID);
+            request.setAttribute("redirect", "modifyaddress");
+            request.getRequestDispatcher("checkout").forward(request, response);
+        }
+        else if ("choose".equals(action)) {                     
+            
+            request.setAttribute("chooseaddress", "chooseaddress");
             request.getRequestDispatcher("checkout").forward(request, response);
         }
     }

@@ -6,6 +6,7 @@
 package com.birdtradingplatform.controller;
 
 import com.birdtradingplatform.dao.AccountDAO;
+import com.birdtradingplatform.dao.CodeDAO;
 import com.birdtradingplatform.model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,43 +40,53 @@ public class UpdateNewPass extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         boolean err= false;
-         String url = "resetPass.jsp";
+         String url = "ChangePass.jsp";
+         HttpSession sesion = request.getSession();
         try{
-            String gmail = request.getParameter("gmail");
-            String pass = request.getParameter("newPass");
-            String confirm = request.getParameter("confirmPass");
+            int code =Integer.parseInt(request.getParameter("code"));
+            String mail = (String) sesion.getAttribute("EMAILHAVECODE");
+            String pass = request.getParameter("Newpass");
+            String confirm = request.getParameter("Confirm");
            
             
-            if(pass.trim().isEmpty()){
+            if(mail == null){
+               err= true;
+               request.setAttribute("MailERR", true);
+           }
+             if(pass == null){
                err= true;
                request.setAttribute("PassERR", true);
            }
             
-            if(confirm.trim().isEmpty()){
+            if(confirm == null){
                err= true;
-               request.setAttribute("Confirm"
-                       + "ERR", true);
+               request.setAttribute("ConfirmERR", true);
            }
             
             if(!pass.equalsIgnoreCase(confirm)){
                err= true;
                request.setAttribute("MatchERR", true);
            }
-            
+             CodeDAO dao = new CodeDAO();
+                int codeDB  = dao.SelectCodeByEmail(mail);
+                if (code == codeDB){
+                    
+                }else{
+                    err = true;
+                    request.setAttribute("CodeERR", true);
+                }
             if (err==false){
-                AccountDAO dao = new AccountDAO();
-               dao.Update(gmail, pass,"password");
-               url="Login.jsp"; 
+                url="Login.jsp";
+                dao.DeleteCodeByEmail(mail);
            }
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UpdateNewPass.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ChangePassController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(UpdateNewPass.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ChangePassController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {
-            Logger.getLogger(UpdateNewPass.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ChangePassController.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

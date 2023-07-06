@@ -25,6 +25,34 @@ public class AccountDAO {
         public List<Account> getAccountList() {
               return accountList;
     }
+         public boolean updateAccount(Account dto) throws ClassNotFoundException, SQLException{
+         Connection con = null;
+        PreparedStatement stm = null;
+        int row  = 0;
+        Account result = null;
+        try {
+              con = DBHelper.makeConnection();
+              String sql = "UPDATE ACCOUNT SET username = ?, email = ?, avatar = ?"
+                            + " WHERE accountID = ?";
+              stm = con.prepareStatement(sql);
+              stm.setString(1, dto.getUsername());
+              stm.setString(2, dto.getEmail());
+              stm.setString(3, dto.getAvatar());
+              stm.setInt(4, dto.getAccountID());
+              row = stm.executeUpdate();
+              if (row > 0) {
+                return true;
+            }
+        } finally {
+              if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+           return false;
+    }
     public Account getAccountByCustomerID(int id) throws ClassNotFoundException, SQLException{
          Connection con = null;
         PreparedStatement stm = null;

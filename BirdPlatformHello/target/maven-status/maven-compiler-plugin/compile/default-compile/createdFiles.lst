@@ -13,6 +13,7 @@ com\birdtradingplatform\controller\CreateCodeController1.class
 com\birdtradingplatform\dao\CustomerDAO.class
 com\birdtradingplatform\model\OrderDetail.class
 com\birdtradingplatform\controller\ResetPass.class
+com\birdtradingplatform\model\OrderDetailFeedback.class
 com\birdtradingplatform\model\AddressShipment.class
 com\birdtradingplatform\admin\controller\DeleteProductController.class
 com\birdtradingplatform\model\Item.class
@@ -65,6 +66,7 @@ com\birdtradingplatform\model\Feedback.class
 com\birdtradingplatform\shop\controller\shopOrderDetailsController.class
 com\birdtradingplatform\model\ProductWithRate.class
 com\birdtradingplatform\shop\controller\shopSaveOrderController.class
+com\birdtradingplatform\shop\controller\shopUpdateProfile.class
 com\birdtradingplatform\shop\controller\shopDashboardController.class
 com\birdtradingplatform\shop\controller\shopSearchOrderController.class
 com\birdtradingplatform\dao\AccountDAO.class

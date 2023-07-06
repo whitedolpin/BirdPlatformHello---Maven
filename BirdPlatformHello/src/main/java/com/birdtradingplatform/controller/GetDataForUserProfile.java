@@ -45,11 +45,10 @@ public class GetDataForUserProfile extends HttpServlet {
         try {
             System.out.println("get Profile here");
             HttpSession session = request.getSession();
-            Account userDTO = (Account) session.getAttribute("USERDTOBYUSERNAME");
+            Account userDTO = (Account) session.getAttribute("dto");
             AccountDAO dao = new AccountDAO();
             request.setAttribute("SERVLET", true);
             String gmail = null;
-            System.out.print("get Data Servlet ne");
 
             UserGoogleDto ggDTO = (UserGoogleDto) session.getAttribute("GOOGLE_ACC");
             String changeGmail = (String) request.getAttribute("CHANGE_GMAIL"); 
@@ -65,17 +64,18 @@ public class GetDataForUserProfile extends HttpServlet {
             
             Account account = dao.CheckLoginbyGmail(gmail);
             Customer cusDTO = new Customer();
+            Customer customer = new Customer();
             if (account != null) {
-                System.out.println("GEt profiile, account new í fine");
                 session.setAttribute("USERDTOBYUSERNAME", account);
                 request.setAttribute("ACCOUNT_EXIST_IN_DB", true);
 
                 CustomerDAO CusDAO = new CustomerDAO();
                 cusDTO = CusDAO.getCustomerByAccountID(account.getAccountID());
-                
+                customer = CusDAO.getCustomerByAccountID(userDTO.getAccountID());
                 
             }
-            session.setAttribute("CUSTOMERDTO", cusDTO);
+            session.setAttribute("CUSTOMERDTOGMAIL", cusDTO);
+            session.setAttribute("CUSTOMERDTO", customer);
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GetDataForUserProfile.class.getName()).log(Level.SEVERE, null, ex);

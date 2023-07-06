@@ -59,7 +59,7 @@
                     </div>
                     <div class ="input-group">
                         <label for ="" class="label-title">Enter a new password</label>
-                        <input type = "passwork" name="Newpass" placeholder ="New Password">
+                        <input required="" type = "passwork" name="Newpass" placeholder ="New Password">
                         <span class="icon">&#128274;</span>
                         <c:if test="${ not empty requestScope.PassERR}">
                             <br><br>
@@ -71,7 +71,7 @@
                     <div class ="input-group">
                         <label for ="" class="label-title">
                             Password Re-authentication</label>
-                        <input type = "passwork" name="Confirm" placeholder ="Confirm Your Password">
+                        <input required="" type = "passwork" name="Confirm" placeholder ="Confirm Your Password">
                         <span class="icon">&#128274;</span>
                         <c:if test="${ not empty requestScope.ConfirmERR}">
                             <br>

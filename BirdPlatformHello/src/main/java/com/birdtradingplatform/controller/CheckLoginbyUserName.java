@@ -9,6 +9,7 @@ import com.birdtradingplatform.dao.AccountDAO;
 import com.birdtradingplatform.dao.ShopDAO;
 import com.birdtradingplatform.model.Account;
 import com.birdtradingplatform.model.Shop;
+import com.birdtradingplatform.utils.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -49,7 +50,10 @@ public class CheckLoginbyUserName extends HttpServlet {
 
             String username = request.getParameter("username");
             String password = request.getParameter("pass");
-             Account result = dao.CheckLoginbyUserName(username, password);
+            // hash password
+            password = Utils.hashString(password);
+            
+            Account result = dao.CheckLoginbyUserName(username, password);
             //login by username and 
            Account dto = dao.CheckLoginbyUserName(username, password);
 

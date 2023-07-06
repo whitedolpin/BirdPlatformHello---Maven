@@ -205,6 +205,14 @@
                                 <span>Rating</span>
                                 <span class="spRight">${requestScope.ratingofshop}</span>
                             </div>
+                             <div>
+                                <span>Address </span>
+                                <span class="spRight">  ${requestScope.shopaddress.getDistrict()}, ${requestScope.shopaddress.getProvice()}</span>
+                            </div>
+                            <div>
+                                <span>Contact</span>
+                                <span class="spRight">${requestScope.productdetail.getShop().getContact()}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

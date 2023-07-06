@@ -30,7 +30,7 @@ public class DispatcherServlet extends HttpServlet {
     private String GETDATATOUSERPROFILECONTROLLE = "GetDataForUserProfile";
     private String UPDATEPASSCONTROLLER = "UpdateNewPass";
     private String CHECKMAILCONTROLLER = "CreateCodeController";
-    private String CHANGEPASSCONTROLLER = "ChangePassController";
+    private String CHANGEPASSCONTROLLER = "UpdateNewPass";
     private String UPDATEPRODUCTCONTROLLER = "UpdateProduct";
     private String ADDPRODUCTCONTROLLER = "AddProductController";
     private String SHOPDELETEPRODUCTCONTROLLER = "ShopDeleteProductController";

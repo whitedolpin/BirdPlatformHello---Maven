@@ -653,7 +653,7 @@ public class OrderDAO {
                             rs.getInt("pQuan"),
                             "", "",
                             rs.getString("img"),
-                            rs.getString("star"), null,
+                            rs.getString("rating"), null,
                             0, 0, "");
                     list.add(new OrderDetailItem(product,
                             rs.getInt("orderDetailID"),

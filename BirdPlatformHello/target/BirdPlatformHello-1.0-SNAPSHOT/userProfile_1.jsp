@@ -91,7 +91,7 @@
                 <div class="container-fluid d-flex align-items-center">
                     <div class="row">
                         <div class="col-lg-7 col-md-10">
-                            <h1 class="display-2 text-white">Hello ${sessionScope.USERDTOBYUSERNAME.username}</h1>
+                            <h1 class="display-2 text-white">Hello ${sessionScope.dto.username}</h1>
                             <p class="text-white mt-0 mb-5">This is your profile page. You can see the information you've save with your profile and manage your profile </p>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                                     <div class="card-profile-image">
                                         <img class="rounded-circle" id="image" src="" alt="">
 
-                                        <img id="NeedHide" class="rounded-circle" src="${sessionScope.USERDTOBYUSERNAME.avatar}" alt="">
+                                        <img id="NeedHide" class="rounded-circle" src="${sessionScope.dto.avatar}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                 </div>
                                 <div class="text-center">
                                     <h3>
-                                        ${sessionScope.USERDTOBYUSERNAME.username}
+                                        ${sessionScope.dto.username}
                                     </h3>
 
                                     <hr class="my-4">
@@ -167,14 +167,14 @@
                                             <div class="col-lg-6">
                                                 <div class="form-group focused">
                                                     <label class="form-control-label" for="input-username">Username</label>
-                                                    <input name="Name" type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="${sessionScope.USERDTOBYUSERNAME.username}">
+                                                    <input name="Name" type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="${sessionScope.dto.username}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label class="form-control-label" for="input-email">Email address</label>
                                                     <input name="Gmail" type="email" id="input-email" class="form-control form-control-alternative"
-                                                           placeholder="${sessionScope.USERDTOBYUSERNAME.email}">
+                                                           placeholder="${sessionScope.dto.email}">
                                                 </div>
                                             </div>
                                         </div>

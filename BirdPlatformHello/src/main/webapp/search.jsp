@@ -195,7 +195,7 @@
                             <c:if test="${ not empty requestScope.SEARCHLIST}">
                                 <c:forEach var="dto" items="${requestScope.SEARCHLIST}">
                                     <c:set var="sale" value="${100 - 100*dto.pSale}" />
-                                    <div class="box">
+                                    <div style="m" class="box">
                                         <c:if test="${sale > 0}">
                                             <div class="sale">
                                                 <h4>${100 - 100*dto.pSale}%</h4>

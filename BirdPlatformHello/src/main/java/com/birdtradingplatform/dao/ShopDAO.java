@@ -5,6 +5,7 @@
 package com.birdtradingplatform.dao;
 
 import com.birdtradingplatform.model.Account;
+import com.birdtradingplatform.model.Address;
 import com.birdtradingplatform.model.Shop;
 import com.birdtradingplatform.model.ShopAddress;
 import com.birdtradingplatform.utils.DBHelper;
@@ -20,17 +21,44 @@ import java.util.Map;
  * @author Minh Quan
  */
 public class ShopDAO {
-    public Map<Integer, String> addressMap;
+    public Map<Integer, Address> addressMap;
 
-    public Map<Integer, String> getAddressMap() {
+    public Map<Integer, Address> getAddressMap() {
         return addressMap;
     }
-    
+      public boolean updateShopInfor(Shop dto) throws ClassNotFoundException, SQLException{
+        Connection con = null;
+        int row = 0;
+        PreparedStatement stm = null;
+        try {
+            con = DBHelper.makeConnection();
+            String sql = "UPDATE Shop set shopName = ?, contact = ? "
+                          + " WHERE shopID = ? ";
+            stm = con.prepareStatement(sql);
+            stm.setString(1, dto.getShopName());
+            stm.setString(2, dto.getContact());
+            stm.setInt(3, dto.getShopID());
+            
+            row = stm.executeUpdate();
+            if (row > 0) {
+                return true;
+            }
+        } finally {
+             if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
     public Shop getShopInforByShopID(Account shops) throws ClassNotFoundException, SQLException {
         Connection con = null;
         ResultSet rs = null;
         PreparedStatement stm = null;
         Shop result = null;
+        Address address = null;
         try {
             con = DBHelper.makeConnection();
             String sql = "SELECT S.[shopID],S.[shopName],S.[rate],S.[contact],S.[accountID],S.[addressID], AD.detail, AD.district, AD.province"
@@ -50,7 +78,7 @@ public class ShopDAO {
                 String district = rs.getString("district");
                 String province = rs.getString("province");
                 result = new Shop(shopId, shopName, rate, contact, accountID, addressID);
-                String address = detail + " " + district + " " + province;
+                address = new Address(0 ,detail, district, province);
                 if (this.addressMap == null) {
                     addressMap = new HashMap<>();
                   }
@@ -317,6 +345,8 @@ public class ShopDAO {
         Account acc1 = accountDAO.getAccountByUsername("bird");
         ShopDAO shopDAO = new ShopDAO();
         Shop s = shopDAO.getShopInforByShopID(acc1);
-        System.out.println(s);
+        Shop shop = shopDAO.getShopInforByShopID(acc1);
+            Map<Integer, Address> address = shopDAO.getAddressMap();
+            System.out.println(address.values());
     }
 }

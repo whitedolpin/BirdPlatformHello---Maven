@@ -34,7 +34,7 @@
 
         <!-- custom css file link  -->
         <link rel="stylesheet" href="css/total.css">
-        <link rel="stylesheet" href="css/shop.css">
+
 
 
     </head>
@@ -84,7 +84,7 @@
                             <span>Best Choice</span>
                             <h3>Find your pet.</h3>
                             <p>Do you need a new pet or best food for your pet?</p>
-                            <a href="shop.html" class="btn">shop now</a>
+                            <a href="saleListController" class="btn">shop now</a>
                         </div>
                         <div class="image">
                             <img src="img/home-img-1.png" alt="">
@@ -222,30 +222,68 @@
             <c:if test="${requestScope.newList!=null}">
                 <c:if test="${not empty requestScope.newList}">
 
-                    <div class="box-container">
+                    <div  class="box-container">
 
                         <c:forEach var="product" items="${requestScope.newList}">
-                            <div class="box">
+
+                            <c:set var="sale" value="${100 - 100*product.pSale}" />
+                            <div style="max-width: 100%;" class="box">
+                                <c:if test="${sale > 0}">
+                                    <div class="sale"  >
+                                        <h4
+                                            style="
+                                            position: absolute;
+                                            background-color: red;
+                                            top: 0;
+                                            left: 0;
+                                            padding: 10px;"
+                                            >${100 - 100*product.pSale}%</h4>
+                                    </div>
+                                </c:if>
+
                                 <div class="icons">
-                                    <a href="product?action=detail&productID=${product.getProductID()}" class="ri-eye-line"></a>
+                                    <form action="product" method="POST">
+                                        <a href="#" class="ri-eye-line"></a>
+                                        <input type="hidden" name="productID" value="${product.productID}" />
+                                        <input type="hidden" name="action" value="detail" /> 
+                                        <input style="background-color: inherit;" type="submit" name="" value="View product">
+                                    </form>
+
                                 </div>
                                 <div class="image">
-                                    <img src="${product.getImg()}" alt="">
+                                    <img src="${product.img}" alt="">
                                 </div>
                                 <div class="content">
-                                    <div class="price">$${product.getPriceOut()*product.getpSale()}</div>
-                                    <h3>${product.getProductName()}</h3>
-                                    <div class="stars">
+                                    <div class="price" style="display: flex;justify-content: space-between;">
 
+                                        <c:if test="${sale > 0}">
 
-                                        <c:if test="${(1-product.getpSale())>0}">
-                                            <p>sale: ${(100-product.getpSale()*100)}% </p>
+                                            <h3 style="text-decoration: line-through;">${product.priceOut} $</h3>
+                                            <h3 style="color: red;"> ${product.priceOut * product.pSale}$</h3>
+
+                                        </c:if>
+                                        <c:if test = "${sale eq 0}">
+                                            <h3> ${product.priceOut} $ </h3>
                                         </c:if>
 
+                                    </div>
+                                    <div class="in4" style="justify-content: space-between;display: flex;">
+                                        <h3>${product.productName}</h3>
+                                        <h3>${product.shop.shopName}</h3>
+                                    </div>
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <span> ${product.rating} </span><br>
 
                                     </div>
                                 </div>
                             </div>
+
+
                         </c:forEach>
 
 
@@ -303,7 +341,7 @@
                                     <a href="#" class="ri-eye-line"></a>
                                     <input type="hidden" name="productID" value="${dto.productID}" />
                                     <input type="hidden" name="action" value="detail" /> 
-                                    <input style="background-color: inherit;" type="submit" name="" value="View product">
+                                    <input style="background-color: inherit;" type="submit" name="" value="View product" />
                                 </form>
 
                             </div>
@@ -316,14 +354,20 @@
 
                                 <c:set var = "salee"  value = "${dto.pSale}"/>
                                 <c:if test = "${salee <1}">
-                                    <div class="sale">
-                                        <h1> <c:out value = "${ Math.round(100 - dto.pSale*100)} %"/><h1>
+                                    <div class="sale"  >
+                                        <h1  style="
+                                            position: absolute;
+                                            background-color: red;
+                                            top: 0;
+                                            left: 0;
+                                            padding: 10px;">
+                                            <c:out value = "${ Math.round(100 - dto.pSale*100)} %"/><h1>
 
                                                 </div>
 
-                                                <div class="price">
-                                                    <h4>${dto.priceOut} $</h4>
-                                                    <h4 id="new">${Math.round(dto.priceOut*dto.pSale)} $ </h4>
+                                            <div style="display: flex;justify-content: space-between;" class="price">
+                                                <h4 style="text-decoration: line-through;">${dto.priceOut} $</h4>
+                                                <h4 style="color: red;" id="new">${Math.round(dto.priceOut*dto.pSale)} $ </h4>
                                                 </div>
 
 
@@ -341,7 +385,7 @@
 
 
                                             <h3>${dto.productName}</h3>
-                                            <div style="display: flex;" class="stars">
+                                            <div style="display: flex; justify-content: space-around" class="stars">
                                                 <i style="color: #5e473e;" class="fa-solid fa-shop"></i>
                                                 <form class="ShopGo" action="">
                                                     <input type="hidden" name="shopID" value="${dto.shop.shopID}" /> 

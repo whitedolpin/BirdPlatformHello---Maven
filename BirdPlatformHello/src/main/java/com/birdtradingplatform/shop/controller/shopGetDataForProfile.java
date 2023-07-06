@@ -8,6 +8,7 @@ package com.birdtradingplatform.shop.controller;
 import com.birdtradingplatform.dao.AccountDAO;
 import com.birdtradingplatform.dao.ShopDAO;
 import com.birdtradingplatform.model.Account;
+import com.birdtradingplatform.model.Address;
 import com.birdtradingplatform.model.Shop;
 import com.birdtradingplatform.model.UserGoogleDto;
 import java.io.IOException;
@@ -70,7 +71,7 @@ public class shopGetDataForProfile extends HttpServlet {
                 request.setAttribute("ACCOUNT_EXIST_IN_DB", true);
             }
             Shop shop = shopDAO.getShopInforByShopID(shopDTO);
-            Map<Integer, String> address = shopDAO.getAddressMap();
+            Map<Integer, Address> address = shopDAO.getAddressMap();
             session.setAttribute("shop", shop);
             request.setAttribute("addressMap", address);
         } finally {

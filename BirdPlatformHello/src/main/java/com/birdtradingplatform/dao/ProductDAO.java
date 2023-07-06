@@ -183,9 +183,9 @@ public class ProductDAO {
         con = DBHelper.makeConnection();
         if (con != null) {
             try {
-                String  sql = "SELECT [productID],[productName],[priceIn],[category],[quantity],[description],[status],[img],[rating],[priceOut],[pSale]"
-                             + "FROM [BirdPlatform].[dbo].[Product]"
-                            + " WHERE shopID = ? ";
+                String  sql = "SELECT p.[productID], p.[productName], p.[priceIn], p.[category], CASE WHEN o.[status] = 'Processing' THEN p.[quantity] ELSE p.[quantity] - COALESCE(od.[orderQuantity], 0) END AS [remainingQuantity], p.[description], p.[status], p.[img], p.[rating], p.[priceOut], p.[pSale]"
+                             + " FROM [BirdPlatform].[dbo].[Product] p"
+                            + " LEFT JOIN ( SELECT [productID], [orderID], SUM([quantity]) AS [orderQuantity] FROM [BirdPlatform].[dbo].[OrderDetail] GROUP BY [productID], [orderID] ) od ON p.[productID] = od.[productID] AND p.[shopID] = ? LEFT JOIN [BirdPlatform].[dbo].[Order] o ON o.[orderID] = od.[orderID] WHERE (o.[status] IS NULL OR o.[status] <> 'Processing');";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, shop.getShopID());
                 rs = stm.executeQuery();
@@ -195,7 +195,7 @@ public class ProductDAO {
                     float priceIn = rs.getFloat("priceIn");
                     String type = "";
                     String category = rs.getString("category");
-                    int quantity = rs.getInt("quantity");
+                    int quantity = rs.getInt("remainingQuantity");
                     String description = rs.getString("description");
                     String status = rs.getString("status");
                     String img = rs.getString("img");

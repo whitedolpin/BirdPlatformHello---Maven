@@ -53,27 +53,27 @@ public class ShopInfoController extends HttpServlet {
            String detail = request.getParameter("detail");
            int roleSave = 1;
            
-           if(name.trim().isEmpty()){
+           if(name == null){
                err= true;
                request.setAttribute("NameERR", true);
            }
            
-           if(contact.trim().isEmpty()){
+           if(contact == null){
                err= true;
                request.setAttribute("EmailERR", true);
            }
            
-           if(province.trim().isEmpty()){
+           if(province== null){
                err= true;
                request.setAttribute("PassERR", true);
            }
            
-           if(district.trim().isEmpty()){
+           if(district== null){
                err= true;
                request.setAttribute("ConfirmERR", true);
            }
            
-           if(detail.trim().isEmpty()){
+           if(detail== null){
                err= true;
                request.setAttribute("DetailERR", true);
            }

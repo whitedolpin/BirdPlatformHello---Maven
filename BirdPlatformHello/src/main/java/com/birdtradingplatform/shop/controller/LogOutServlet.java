@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "LogOutServlet", urlPatterns = {"/LogOutServlet"})
 public class LogOutServlet extends HttpServlet {
-    private final String LOGIN_PAGE = "Login.jsp";
+    private final String HOME_PAGE = "GetDataForHomepage";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,7 +39,13 @@ public class LogOutServlet extends HttpServlet {
         if (account != null) {
             session.removeAttribute("account");
         }
-        response.sendRedirect(LOGIN_PAGE);
+        
+        account = (Account) session.getAttribute("dto");
+        if (account != null) {
+            session.removeAttribute("dto");
+        }
+        
+        response.sendRedirect(HOME_PAGE);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

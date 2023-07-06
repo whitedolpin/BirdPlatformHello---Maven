@@ -208,6 +208,7 @@
         shopemail@gmail.com | +84 123456789
     </section>
     <!-- footer section end  -->
+     <%@include file="LoadingAnimationCover.jsp" %>
 
   </body>
   
@@ -232,32 +233,38 @@
                                                     firebase.initializeApp(firebaseConfig);
                                                     console.log(firebase);
                                                     function uploadImage() {
-                                                        const ref = firebase.storage().ref();
-                                                        const file = document.querySelector("#photo").files[0];
-                                                        const name = +new Date() + "-" + file.name;
-                                                        const metadata = {
-                                                            contentType: file.type
-                                                        };
-                                                        const task = ref.child(name).put(file, metadata);
-                                                        task
-                                                                .then(snapshot => snapshot.ref.getDownloadURL())
-                                                                .then(url => {
-                                                                    console.log(url);
-                                                                    alert('image uploaded successfully');
-                                                                    document.querySelector("#image").src = url;
-                                                                    
-                                                                     if (url != "") {
-                                                                        document.querySelector("#inputTag").value = url;
-                                                                        document.querySelector("#inputTag").placeholder = url;
-                                                                    }
-                                                                    
-                                                                    var element = document.querySelector("#NeedHide");
-                                                                    element.style.display = "none";
-                                                                   
+                                            var waiting = document.getElementById("waiting");
+                                            waiting.style.display = "block";
+                                            const ref = firebase.storage().ref();
+                                            const file = document.querySelector("#photo").files[0];
+                                            const name = +new Date() + "-" + file.name;
+                                            const metadata = {
+                                                contentType: file.type
+                                            };
+                                            const task = ref.child(name).put(file, metadata);
+                                            task
+                                                    .then(snapshot => snapshot.ref.getDownloadURL())
+                                                    .then(url => {
+                                                        console.log(url);
+                                                        alert('image uploaded successfully');
+                                                        document.querySelector("#image").src = url;
 
-                                                                })
-                                                                .catch(console.error);
-                                                    }
+                                                        if (url != "") {
+                                                            document.querySelector("#inputTag").value = url;
+                                                            document.querySelector("#inputTag").placeholder = url;
+                                                        }
+
+                                                        var element = document.querySelector("#NeedHide");
+                                                        element.style.display = "none";
+
+
+                                                    })
+                                                    .catch((err) => console.log(err))
+                                                    .finally(() => {
+                                                        // Hoàn thành quá trình upload ảnh
+                                                        waiting.style.display = "none"; // Ẩn loading animation
+                                                    });
+                                        }
                                                     const errorMsgElement = document.querySelector('span#errorMsg');
     </script>
   

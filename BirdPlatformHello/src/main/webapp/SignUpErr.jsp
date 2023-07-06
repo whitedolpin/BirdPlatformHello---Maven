@@ -112,7 +112,7 @@
               
               <p class="text">
                 By signing up, I agree to the
-                <a href="#">Terms of Services</a> and
+                <a href="Term.html">Terms of Services</a> and
                 <a href="#">Privacy Policy</a>
               </p>
             </div>

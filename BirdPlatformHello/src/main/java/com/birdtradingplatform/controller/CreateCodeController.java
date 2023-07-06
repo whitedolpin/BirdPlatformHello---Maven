@@ -61,10 +61,11 @@ public class CreateCodeController extends HttpServlet {
             
             
         } catch (SQLException ex) {
-            
+            System.out.println("sql" + ex.getMessage());
         } catch (NamingException ex) {
-            
+            System.out.println("naming" + ex.getMessage());
         } catch (ClassNotFoundException ex) {
+            System.out.println("not fount" + ex.getMessage());
             Logger.getLogger(CreateCodeController.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             

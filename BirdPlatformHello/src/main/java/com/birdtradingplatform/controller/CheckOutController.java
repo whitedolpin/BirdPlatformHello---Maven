@@ -5,6 +5,7 @@
  */
 package com.birdtradingplatform.controller;
 
+import com.birdtradingplatform.dao.AddressShipmentDAO;
 import com.birdtradingplatform.dao.CustomerDAO;
 import com.birdtradingplatform.dao.ProductDAO;
 import com.birdtradingplatform.model.Account;
@@ -45,26 +46,28 @@ public class CheckOutController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException, NamingException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException, NamingException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
+        String chooseaddress = (String) request.getAttribute("chooseaddress");
         String redirect = (String) request.getAttribute("redirect");
-        if ("addaddress".equals(redirect)) {
+        if ("modifyaddress".equals(redirect)) {
             HttpSession session = request.getSession();
-            Account account = (Account) session.getAttribute("dto");           
+            Account account = (Account) session.getAttribute("dto");
             CustomerDAO cusDAO = new CustomerDAO();
             Customer customer = cusDAO.getCustomerByAccountID(account.getAccountID());
             if (customer == null) {
                 response.sendRedirect("err.html");
             }
-             List<AddressShipment> addressShipmentList = cusDAO.getAddressShipmentByCusID(customer.getCustomerID());//test
+            List<AddressShipment> addressShipmentList = cusDAO.getAddressShipmentByCusID(customer.getCustomerID());//test
             //deliveryto
             request.setAttribute("addressShipment", addressShipmentList.get(0));
             request.setAttribute("addressShipmentList", addressShipmentList);
             request.getRequestDispatcher("checkout.jsp").forward(request, response);
 
-        } else if ("Check-out".equals(action)) {
+        } else if ("Check-out".equals(action) || "chooseaddress".equals(chooseaddress)) {
             HttpSession session = request.getSession();
+            String addressShipID = request.getParameter("addressShipID");
             Account account = (Account) session.getAttribute("dto");
             if (account == null) {
                 request.getRequestDispatcher("Login.jsp").include(request, response);
@@ -76,7 +79,20 @@ public class CheckOutController extends HttpServlet {
             }
             List<AddressShipment> addressShipmentList = cusDAO.getAddressShipmentByCusID(customer.getCustomerID());//test
             //deliveryto
-            request.setAttribute("addressShipment", addressShipmentList.get(0));
+            if (addressShipID == null) {
+                request.setAttribute("addressShipment", addressShipmentList.get(0));
+
+            } else {
+                try {
+                    AddressShipmentDAO adao = new AddressShipmentDAO();
+
+                    request.setAttribute("addressShipment", adao.getAddressShipmentByID(Integer.parseInt(addressShipID)));
+                } catch (Exception e) {
+                    request.setAttribute("addressShipment", addressShipmentList.get(0));
+
+                }
+
+            }
             request.setAttribute("addressShipmentList", addressShipmentList);
 
             String checkoutList[] = request.getParameterValues("checkoutlist");
@@ -138,13 +154,7 @@ public class CheckOutController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CheckOutController.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NamingException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -169,6 +179,8 @@ public class CheckOutController extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {
+            Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(CheckOutController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
