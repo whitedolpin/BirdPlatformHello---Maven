@@ -2,7 +2,7 @@
 
 * {
     font-family: 'Poppins', sans-serif;
-    margin: 0;
+    margin: 0 ;
     padding: 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -117,7 +117,10 @@ html::-webkit-scrollbar-thumb {
 }
 
 section {
-    padding: 3rem 9%;
+    padding: 3rem 4%;
+    background-color: white;
+    margin: 20px 0px;
+    border-radius: 5px;
 }
 
 .heading {
@@ -1853,7 +1856,8 @@ check out start */
 /* check out start */
 
 .userInfo h3{
-    font-size: 1.6rem;
+    font-weight: 580;
+    font-size: 14px;
 }
 
 .user__details {
@@ -1874,6 +1878,7 @@ check out start */
     display: block;
   }
   .user__details .input__box input {
+    background-color: #e4e4e4;
     height: 45px;
     width: 100%;
     outline: none;
@@ -1888,6 +1893,7 @@ check out start */
   .user__details .input__box input:focus,
   .user__details .input__box input:valid {
     border-color: var(--main-purple);
+        font-size: 13px;
   }
 
   .details{
@@ -2054,7 +2060,7 @@ check out start */
 }
 
 .cart-head p{
-    font-size: 1.6rem;
+    font-size: 2rem;
 }
 
 .cart-head_description{
@@ -2064,7 +2070,7 @@ check out start */
     
 }
 
-button[type="submit"] {
+button[type="submit"],button[type="reset"] {
     display: inline-block;
     padding: 8px 16px;
     background-color: #e69476;
@@ -2074,7 +2080,7 @@ button[type="submit"] {
     margin-right: 5px;
   }
   
-  button[type="submit"]:hover {
+  button[type="submit"]:hover , button[type="reset"]:hover {
     background-color: #caab9f;
   }
   
@@ -2103,7 +2109,8 @@ button[type="submit"] {
   }
   
   .tagBar h3 {
-    font-size: 18px;
+      font-size: 14px;
+      font-weight: 580;
     margin-bottom: 10px;
   }
   
@@ -2166,7 +2173,7 @@ button[type="submit"] {
   }
   
   .commentTable h3 {
-    font-size: 18px;
+    font-weight: 580;
     margin-bottom: 10px;
   }
   
@@ -2248,7 +2255,7 @@ button[type="submit"] {
     transform: translate(-50%, -50%);
     z-index: 9999;
     background-color: #fff;
-    padding: 40px;
+    padding: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 400px; 
@@ -2295,6 +2302,7 @@ button[type="submit"] {
   
   
   .tags input{
+      border-radius: 4px;
       padding: 5px 20px;
       margin: 5px 10px;
   }

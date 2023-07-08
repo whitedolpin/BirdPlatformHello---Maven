@@ -15,10 +15,21 @@ public class Shop {
     private String contact;
     private int accountID;
     private int addressID;
-
+    private int view;
+    
     public Shop() {
     }
 
+    public Shop(int shopID, String shopName, double rate, String contact, int accountID, int addressID, int view) {
+        this.shopID = shopID;
+        this.shopName = shopName;
+        this.rate = rate;
+        this.contact = contact;
+        this.accountID = accountID;
+        this.addressID = addressID;
+        this.view = view;
+    }
+    
     public Shop(int shopID, String shopName, double rate, String contact, int accountID, int addressID) {
         this.shopID = shopID;
         this.shopName = shopName;
@@ -80,7 +91,21 @@ public class Shop {
 
     @Override
     public String toString() {
-        return "Shop{" + "shopID=" + shopID + ", shopName=" + shopName + ", avatar="  + ", rate=" + rate + ", contact=" + contact + ", accountID=" + accountID + ", addressID=" + addressID + '}';
+        return "Shop{" + "shopID=" + getShopID() + ", shopName=" + getShopName() + ", avatar="  + ", rate=" + getRate() + ", contact=" + getContact() + ", accountID=" + getAccountID() + ", addressID=" + getAddressID() + '}';
+    }
+
+    /**
+     * @return the view
+     */
+    public int getView() {
+        return view;
+    }
+
+    /**
+     * @param view the view to set
+     */
+    public void setView(int view) {
+        this.view = view;
     }
 
     

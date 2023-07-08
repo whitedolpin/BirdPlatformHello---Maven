@@ -20,7 +20,6 @@
         <link rel="stylesheet" href="css/shopDashboard.css"/>
     </head>
     <body>
-
         <div class="grid-container">
             <!-- Header -->
             <header class="header">
@@ -35,22 +34,17 @@
                 <!-- End Sidebar -->
 
                 <!-- Main -->
-                <main class="main-container">
+                <main class="main-container" style="padding: 3%">
                     <div class="shop-begin">
                         <div class="main-title">
-                            <div class="shop-details right">
+                            <div class="shop-details">
                                 <img src="${sessionScope.dto.avatar}" alt="alt"
                                      class=" img-table rounded-circle align-items-center"/>
                                 <h3 class="text-center ">My Shop</h3>
-                                <h4 class="text-center">Address</h4>
                                 <div class="shop-information text-center">
-                                    <div class="shop-product-infor">
-                                        <h4>76</h4>
+                                    <div class="shop-product-infor" style="padding: 50px">
+                                        <h4>${NUMBEROFPRODUCT}</h4>
                                         <h4>PRODUCTS</h4>
-                                    </div>
-                                    <div class="customer-info">
-                                        <h4>76</h4>
-                                        <h4>CUSTOMERS</h4>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +68,7 @@
                             <div class="middle">
                                 <div class="left">
                                     <h31>Totals View</h3>
-                                        <h1>200</h1>
+                                        <h1>${VIEW}</h1>
                                 </div>          
                                 <div class="progress">
                                     <svg>
@@ -124,7 +118,7 @@
                             <div class="middle">
                                 <div class="left">
                                     <h3>Total Income</h3>
-                                    <h1>200</h1>
+                                    <h1>${INCOME}</h1>
                                 </div>
                                 <div class="progress">
                                     <svg>

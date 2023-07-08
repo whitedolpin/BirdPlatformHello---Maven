@@ -21,9 +21,9 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" href="css/header.css">
-    <body>
+    <body >
             <!-- Header -->
-                <div class="menu-icon" onclick="openSidebar()">
+             <div class="menu-icon" onclick="openSidebar()">
                     <span class="material-icons-outlined">menu</span>
                 </div>
                 <form>
@@ -42,13 +42,13 @@
                             </li>
                             <li>
                                 <span class="material-icons-outlined">account_circle</span>
-                                <a href="shopGetDataForProfile">My profile</a>
-                            </li>            
+                                <a href="shopGetDataForProfile" style="text-decoration: none">My profile</a>
+                            </li>
                             <li>
                                 <span class="material-symbols-outlined">
                                     logout
                                 </span>
-                                <a href="LogOutServlet">Log out</a>
+                                <a href="LogOutServlet" style="text-decoration: none">Log out</a>
                             </li>
                         </ul>
                     </div>

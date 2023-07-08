@@ -37,7 +37,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "shopDashboardController", urlPatterns = {"/shopDashboardController"})
 public class shopDashboardController extends HttpServlet {
+
     private final String SHOP_PAGE = "shopDashboard.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -59,33 +61,38 @@ public class shopDashboardController extends HttpServlet {
                 ShopDAO shopDAO = new ShopDAO();
                 ProductDAO productDAO = new ProductDAO();
                 OrderDetailDAO detailDAO = new OrderDetailDAO();
-                 Map<Integer, String> topProduct = new HashMap<>();
-                  List<OrderDetail> productList = new ArrayList<>();
+                Map<Integer, String> topProduct = new HashMap<>();
+                List<OrderDetail> productList = new ArrayList<>();
+                
+                double income = 0;
                 double total = 0;
-                    Shop shop = shopDAO.getShopInforByShopID(dto);
-                    List<Product> products =  productDAO.getProductByShopID(shop);
-                    List<Order> orders = orderDAO.getOrderByShopID(shop);
-                    
-                    List<Order> incomeList = orderDAO.getIncomeOfTheShop(shop.getShopID());
-                    Map<Double, String> incomeMap = orderDAO.getIncomeOfShopMap();
-                    
-                    List<Order> saleList = orderDAO.getNumberOfOrderByMonth(shop.getShopID());
-                    Map<Integer, String> saleMap = orderDAO.getSaleMap();
-                    
-                    for (int i = 0; i < orders.size(); i++) {
-                    total += orders.get(i).getTotal();
-                     productList = detailDAO.getTop5ProductOfShop();
-                     topProduct = detailDAO.getTopProductMap();
-                    }
-                    request.setAttribute("SALEMAP", saleMap);
-                    request.setAttribute("INCOMEMAP", incomeMap);
-                    request.setAttribute("TOPPRODUCTOFSHOP", topProduct);
-                    request.setAttribute("QUANTITY", productList);
-                    request.setAttribute("NUMBEROFORDER", orders.size());
-                    request.setAttribute("INCOMEOFSHOP", total);
-                    request.setAttribute("INCOME", orders);
-                    request.setAttribute("NUMBEROFPRODUCT", products.size());
+                Shop shop = shopDAO.getShopInforByShopID(dto);
+                List<Product> products = productDAO.getProductByShopID(shop);
+                List<Order> orders = orderDAO.getOrderByShopID(shop);
+                for (int i = 0; i < orders.size(); i++) {
+                    income += orders.get(i).getTotal();
                 }
+                List<Order> incomeList = orderDAO.getIncomeOfTheShop(shop.getShopID());
+                Map<Double, String> incomeMap = orderDAO.getIncomeOfShopMap();
+
+                List<Order> saleList = orderDAO.getNumberOfOrderByMonth(shop.getShopID());
+                Map<Integer, String> saleMap = orderDAO.getSaleMap();
+
+                for (int i = 0; i < orders.size(); i++) {
+                    total += orders.get(i).getTotal();
+                    productList = detailDAO.getTop5ProductOfShop();
+                    topProduct = detailDAO.getTopProductMap();
+                }
+                request.setAttribute("VIEW", shop.getView());
+                request.setAttribute("SALEMAP", saleMap);
+                request.setAttribute("INCOMEMAP", incomeMap);
+                request.setAttribute("TOPPRODUCTOFSHOP", topProduct);
+                request.setAttribute("QUANTITY", productList);
+                request.setAttribute("NUMBEROFORDER", orders.size());
+                request.setAttribute("INCOMEOFSHOP", total);
+                request.setAttribute("INCOME", income);
+                request.setAttribute("NUMBEROFPRODUCT", products.size());
+            }
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(SHOP_PAGE);
             rd.forward(request, response);

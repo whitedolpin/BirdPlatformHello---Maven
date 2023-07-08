@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,7 +23,7 @@
         <!-- custom css file link  -->
         <link rel="stylesheet" href="css/shopFeedback.css" />
     </head>
-    <body>
+   <body>
         <div class="grid-container"> 
             <!-- Header -->
             <header class="header">
@@ -32,155 +34,130 @@
                 <!-- Sidebar -->
                 <aside id="sidebar">
                 <jsp:include page="shopSidebar.jsp"></jsp:include>
-            </aside>
-            <!-- End Sidebar -->
+                </aside>
+                <!-- End Sidebar -->
 
-            <main class="main-container">
-                <div class="cart-head">
-                    <p class="name-product">Feedback</p>
-                    <div class="cart-head_description">
+                <main class="main-container">
+                    <div style="background-color: inherit;
+    color: black;" class="cart-head">
+                        <p class="name-product">Feedback</p>
+                        <div class="cart-head_description">
 
-                    </div>
-                </div>
-
-                <section class="userInfo">
-                    <h3>Rate Shope </h3>
-                    <p>See all comment rate shop</p>
-
-                    <div class="user__details">
-                        <div class="input__box">
-                            <span class="details">Name </span>
-                            <input type="text" placeholder="E.g: kiet" required>
-                        </div>
-                        <div class="input__box">
-                            <span class="details">Information</span>
-                            <input type="text" placeholder="thuc an" required>
-                        </div>
-                        <div class="input__box">
-                            <span class="details">Shopper</span>
-                            <input type="text" required>
-                        </div>
-                        <div class="input__box">
-                            <span class="details">Time/Date rate</span>
-                            <input type="date" placeholder="DD\MM\YYYY" required>
                         </div>
                     </div>
-                    <button type="submit">Find</button>
-                    <button type="submit">Reset</button>
-                </section>
-                <section class="tagBar">
-                    <h3>FEEDBACK REVIEW:</h3>
-                    <div class="tags">
-                        <span class="tag" data-value="option1">All comments</span>
-                        <span class="tag" data-value="option2">Seen</span>
-                        <span class="tag" data-value="option3">Answered</span>
-                        <span class="tag" data-value="option1">5 star</span>
-                        <span class="tag" data-value="option2">4 star</span>
-                        <span class="tag" data-value="option3">3 star</span>
-                        <span class="tag" data-value="option2">2 star</span>
-                        <span class="tag" data-value="option3">1 star</span>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Customer Information</th>
-                                <th>Comment and Product Rating</th>
-                                <th>Shop Reply</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="customerInfo">
-                                        <img src="image/home-img-1.png" alt="">
-                                        <div class="productCategory">Food</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="rating">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
-                                    <div class="comment">Great product!Great product!Great product!Great product!</div>
-                                </td>
-                                <td>
-                                    <div class="commentWrapper">
-                                        <button class="replyBtn" onclick="toggleReplyContainer()">Reply</button>
-                                        <div class="replyContainer">
-                                            <input type="text" class="replyInput" placeholder="Write a reply...">
-                                            <div class="replyActions">
-                                                <button class="updateBtn">Update</button>
-                                                <button class="deleteBtn">Delete</button>
+
+                    <section style="    margin-left: 20px;" class="userInfo">
+                        <h3>Rate Shope </h3>
+                        <p>See all comment rate shop</p>
+                        <form action="ShopFilterFeedbackInBox" method="POST">
+                            <div class="user__details">
+                                <div class="input__box">
+                                    <span class="details">Name </span>
+                                    <input name="productname" type="text" placeholder="Product name" >
+                                </div>
+                                <div class="input__box">
+                                    <span class="details">Category</span>
+                                    <input name="category" type="text" placeholder="Category of product" >
+                                </div>
+                                <div class="input__box">
+                                    <span class="details">Type</span>
+                                    <input name="type" type="text"  placeholder="A part of feedback detail">
+                                </div>
+                                <div class="input__box">
+                                    <span class="details">Time/Date rate</span>
+                                    <input name="date" type="date" placeholder="DD\MM\YYYY" >
+                                </div>
+                            </div>
+                            <button name="MAIN" value="ShopFindFeedBack" type="submit">Find</button>
+                            <button type="reset">Reset</button>
+                        </form>
+                    </section>
+                    <section style="    margin-left: 20px;" class="tagBar">
+                        <h3>Feedback Review:
+                        
+                    <c:set var="saveReply" value="${requestScope.SAVEREPLY}" />
+                    <c:if test="${ not empty saveReply}">
+                        Save reply successfully!
+                    </c:if>
+                        </h3> 
+                        <div class="tags">
+
+                            <form action="ShopFilterFeedbackController" method="POST">
+                                <input type="submit" name="all" value="All comment" > 
+                                <input type="submit" name="all" value="Not response" >  
+                                <input type="submit" name="star" value="5 stars" > 
+                                <input type="submit" name="star" value="4 stars" > 
+                                <input type="submit" name="star" value="3 stars" > 
+                                <input type="submit" name="star" value="2 stars" > 
+                                <input type="submit" name="star" value="1 star" > 
+                            </form>
+
+
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Customer Information</th>
+                                    <th>Comment and Product Rating</th>
+                                    <th>Shop Reply</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            <c:set var="FBLIST"  value="${requestScope.FBLIST}"  />  
+
+                            <c:forEach var="dto" items="${requestScope.FBLIST}">
+
+
+                                <tr>
+                                    <td>
+                                        <div class="customerInfo">
+                                            <img src="${dto.img}" alt="">
+                                            <div class="productCategory">${dto.publishedDate}</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="rating">
+                                            ${dto.star}
+                                            <span class="fa fa-star checked"> </span>
+
+                                        </div>
+                                        <div class="comment"> <p>
+                                                ${dto.detail}
+                                            </p>  </div>
+                                    </td>
+                                    <td>
+                                        <div class="commentWrapper">
+                                            <button class="replyBtn" onclick="toggleReplyContainer()">Reply</button>
+                                            <div class="replyContainer">
+                                                <form action="ShopSaveReplyController" method="POST">
+                                                    Reply to feedback of ${dto.publishedDate}
+                                                    <input required="" name="detail" type="text" class="replyInput" placeholder="Write a reply...">
+                                                    <div class="replyActions">
+                                                        
+
+                                                        <input type="hidden" name="ID" value="${dto.feedbackID}" /> 
+                                                        <button class="replyBtn" onclick="toggleReplyContainer()">Cancel</button>
+                                                        <button type="submit" class="deleteBtn">Reply</button>
+
+
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+
+
+                            </c:forEach>
+
+
+
+
+
                             <!-- -->
-                            <tr>
-                                <td>
-                                    <div class="customerInfo">
-                                        <img src="image/home-img-1.png" alt="">
-                                        <div class="productCategory">Food</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="rating">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
-                                    <div class="comment">Great product!Great product!Great product!Great product!</div>
-                                </td>
-                                <td>
-                                    <div class="commentWrapper">
-                                        <button class="replyBtn" onclick="toggleReplyContainer()">Reply</button>
-                                        <div class="replyContainer">
-                                            <input type="text" class="replyInput" placeholder="Write a reply...">
-                                            <div class="replyActions">
-                                                <button class="updateBtn">Update</button>
-                                                <button class="deleteBtn">Delete</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <!-- -->
-                            <tr>
-                                <td>
-                                    <div class="customerInfo">
-                                        <img src="image/home-img-1.png" alt="">
-                                        <div class="productCategory">Food</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="rating">
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
-                                    <div class="comment">Great product!Great product!Great product!Great product!</div>
-                                </td>
-                                <td>
-                                    <div class="commentWrapper">
-                                        <button class="replyBtn" onclick="toggleReplyContainer()">Reply</button>
-                                        <div class="replyContainer">
-                                            <input type="text" class="replyInput" placeholder="Write a reply...">
-                                            <div class="replyActions">
-                                                <button class="updateBtn">Update</button>
-                                                <button class="deleteBtn">Delete</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+
+
                         </tbody>
                     </table>
                 </section>

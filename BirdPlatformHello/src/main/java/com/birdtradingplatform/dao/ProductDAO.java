@@ -127,7 +127,7 @@ public class ProductDAO {
         return list;
     }
     
-    public List<Product> getProductByName(String name) throws SQLException{
+  public List<Product> getProductByName(String name) throws SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -140,23 +140,20 @@ public class ProductDAO {
                 stm = con.prepareStatement(sql);
                 stm.setString(1, "%" + name + "%");
                 rs = stm.executeQuery();
-                    while (rs.next()) {
-                        int productID = rs.getInt("productID");
-                        String productName = rs.getString("productName");
-                        float priceIn = rs.getFloat("priceIn");
-                        String type = rs.getString("type");
-                        String category = rs.getString("category");
-                        int quantity = rs.getInt("quantity");
-                        String description = rs.getString("description");
-                        String status = rs.getString("status");
-                        String img = rs.getString("img");
-                        String sku = rs.getString("sku");
-                        int shopID = rs.getInt("shopID");
-                        float priceOut = rs.getFloat("priceOut");
-                        float pSale = rs.getFloat("pSale");
+                while (rs.next()) {
+                    int productID = rs.getInt("productID");
+                    String productName = rs.getString("productName");
+                    double priceIn = rs.getDouble("priceIn");
+                    String category = rs.getString("category");
+                    int quantity = rs.getInt("quantity");
+                    String description = rs.getString("description");
+                    String status = rs.getString("status");
+                    String img = rs.getString("img");
+                    String rating = rs.getString("rating");
+                    double priceOut = rs.getDouble("priceOut");
+                    double pSale = rs.getDouble("pSale");
 
-                        result = new Product(productID, productName, priceIn, type, category, quantity, description, status, img, sku, null, priceOut, pSale, "");
-                        products.add(result);
+                    products.add(new Product(productID, productName, priceIn, category, quantity, description, status, img, rating, null, priceOut, pSale, ""));
                 }
             }
         } catch (Exception e) {
@@ -754,22 +751,22 @@ public class ProductDAO {
         try {
             con = DBHelper.makeConnection();
             if (con != null) {
-                String sql = "insert into product values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                String sql = "insert into product values(?,?,?,?,?,?,?,0,?,?,?,null)";
+                        
                 stm = con.prepareStatement(sql);
                 stm.setString(1, product.getProductName());
                 stm.setDouble(2,  product.getPriceIn());
-                stm.setString(3,  product.getType());
-                stm.setString(4,  product.getCategory());
-                stm.setInt(5,  product.getQuantity());
-                stm.setString(6,  product.getDescription());
-                stm.setString(7,  product.getStatus());
-                stm.setString(8,  product.getImg());
+                stm.setString(3,  product.getCategory());
+                stm.setInt(4,  product.getQuantity());
+                stm.setString(5,  product.getDescription());
+                stm.setString(6,  product.getStatus());
+                stm.setString(7,  product.getImg());
                 System.out.println("Product dao " +product.getImg());
-                stm.setString(9,  product.getRating());
-                stm.setInt(10,  ShopID);
-                stm.setDouble(11,  product.getPriceOut());
-                stm.setDouble(12,  product.getpSale());
-                stm.setString(13,  product.getDateIn());
+                
+               // stm.setString(9,  product.getRating());
+                stm.setInt(8,  ShopID);
+                stm.setDouble(9,  product.getPriceOut());
+                stm.setDouble(10,  product.getpSale());
                 
                 row = stm.executeUpdate();
                 if (row > 0) {

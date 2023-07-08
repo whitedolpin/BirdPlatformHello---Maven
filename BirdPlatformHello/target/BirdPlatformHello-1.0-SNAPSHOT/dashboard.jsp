@@ -19,8 +19,7 @@
         <link rel="stylesheet" href="css/dashboard.css">
         <link rel="stylesheet" href="css/base.css"/>
     </head>
-    <body>
-
+    <body>  
         <div class="grid-container">
             <!-- Header -->
             <header class="header">
@@ -35,87 +34,87 @@
                 <!-- End Sidebar -->
 
                 <!-- Main -->
-                <main class="main-container">
+                <main class="main-container" style="padding: 3%">
                     <div class="main-title">
                         <h2>DASHBOARD</h2>
                     </div>
                     <div class="insights">
                     <c:set var="count" value="${0}"/>                                           
-                            <!-- begin of the table Account -->
-                            <div class="account"> 
-                                <div>
-                                    <span class="material-symbols-outlined">
-                                        person
-                                    </span>
-                                    <div class="middle">
-                                        <div class="left">
-                                            <h31>Totals Users</h3>
-                                            <h1>${DATA}</h1>
-                                        </div>          
-                                        <div class="progress">
-                                            <svg>
-                                            <circle cx='38' cy='38' r='36'></circle>
-                                            </svg>
-                                            <div class="number">
-                                                <p>81%</p>
-                                            </div>
-                                        </div>
+                    <!-- begin of the table Account -->
+                    <div class="account"> 
+                        <div>
+                            <span class="material-symbols-outlined">
+                                person
+                            </span>
+                            <div class="middle">
+                                <div class="left">
+                                    <h31>Totals Users</h3>
+                                        <h1>${DATA}</h1>
+                                </div>          
+                                <div class="progress">
+                                    <svg>
+                                    <circle cx='38' cy='38' r='36'></circle>
+                                    </svg>
+                                    <div class="number">
+                                        <p>81%</p>
                                     </div>
-                                </div> 
-                                <small class="text-muted">Last month</small>
+                                </div>
                             </div>
-                            <!-- end of table Account -->
+                        </div> 
+                        <small class="text-muted">Last month</small>
+                    </div>
+                    <!-- end of table Account -->
 
-                            <!-- begin of table Orders -->
-                            <div class="orders"> 
-                                <div>
-                                    <span class="material-symbols-outlined">
-                                        density_small
-                                    </span>
-                                    <div class="middle">
-                                        <div class="left">
-                                            <h3>Totals Orders</h3>
-                                            <h1>${ORDERS}</h1>                                         
-                                        </div>
-                                        <div class="progress">
-                                            <svg>
-                                            <circle cx='38' cy='38' r='36'></circle>
-                                            </svg>
-                                            <div class="number">
-                                                <p>81%</p>
-                                            </div>
-                                        </div>
+                    <!-- begin of table Orders -->
+                    <div class="orders"> 
+                        <div>
+                            <span class="material-symbols-outlined">
+                                density_small
+                            </span>
+                            <div class="middle">
+                                <div class="left">
+                                    <h3>Totals Orders</h3>
+                                    <h1>${ORDERS}</h1>                                         
+                                </div>
+                                <div class="progress">
+                                    <svg>
+                                    <circle cx='38' cy='38' r='36'></circle>
+                                    </svg>
+                                    <div class="number">
+                                        <p>81%</p>
                                     </div>
-                                </div> 
-                                <small class="text-muted">Last month</small>
+                                </div>
                             </div>
-                            <!-- end of table Orders -->
+                        </div> 
+                        <small class="text-muted">Last month</small>
+                    </div>
+                    <!-- end of table Orders -->
 
-                            <!-- begin of table Income -->
-                            <div class="income"> 
-                                <div>
-                                    <span class="material-symbols-outlined">
-                                        stacked_line_chart
-                                    </span>
-                                    <div class="middle">
-                                        <div class="left">
-                                            <h3>Total Income</h3>
-                                            <h1>${INCOME}</h1>
-                                        </div>
-                                        <div class="progress">
-                                            <svg>
-                                            <circle cx='38' cy='38' r='36'></circle>
-                                            </svg>
-                                            <div class="number">
-                                                <p>81%</p>
-                                            </div>
-                                        </div>
+                    <!-- begin of table Income -->
+                    <div class="income"> 
+                        <div>
+                            <span class="material-symbols-outlined">
+                                stacked_line_chart
+                            </span>
+                            <div class="middle">
+                                <div class="left">
+                                    <h3>Total Income</h3>
+                                    <h1>${INCOME}</h1>
+                                </div>
+                                <div class="progress">
+                                    <svg>
+                                    <circle cx='38' cy='38' r='36'></circle>
+                                    </svg>
+                                    <div class="number">
+                                        <p>81%</p>
                                     </div>
-                                </div> 
-                                <small class="text-muted">Last month</small>
+                                </div>
                             </div>
-                            <!-- end of table Income -->
-                        </form>
+                        </div> 
+                        <small class="text-muted">Last month</small>
+                    </div>
+                    <!-- end of table Income -->
+                    </form>
                 </div>
 
                 <div class="charts">
@@ -169,13 +168,13 @@
 
 // BAR CHART
             var bartData = [
-                <c:forEach var="order" items="${requestScope.TOPQUANTITY}">
+            <c:forEach var="order" items="${requestScope.TOPQUANTITY}">
                 ${order.quantity},
             </c:forEach>
             ];
             var categoryData = [
-                <c:forEach var="product" items="${requestScope.TOPPRODUCT}">
-                            "${product.productName}",
+            <c:forEach var="product" items="${requestScope.TOPPRODUCT}">
+                "${product.productName}",
             </c:forEach>
             ];
             var barChartOptions = {
@@ -233,13 +232,20 @@
             barChart.render();
 
 // AREA CHART
+            var purchaseData = [
+            <c:forEach var="purchase" items="${requestScope.PURCHASEMAP}">
+                ${purchase.key},
+            </c:forEach>
+            ];
+            var purchaseMonthData = [
+            <c:forEach var="month" items="${requestScope.PURCHASEMAP}">
+                "${month.value}"
+            </c:forEach>
+            ];
             var areaChartOptions = {
                 series: [{
                         name: 'Purchase Orders',
-                        data: [31, 40, 28, 51, 42, 109, 100]
-                    }, {
-                        name: 'Sales Orders',
-                        data: [11, 32, 45, 32, 34, 52, 41]
+                        data: purchaseData
                     }],
                 chart: {
                     height: 350,
@@ -248,14 +254,14 @@
                         show: false,
                     },
                 },
-                colors: ["#4f35a1", "#246dec"],
+                colors: ["#4f35a1"],
                 dataLabels: {
                     enabled: false,
                 },
                 stroke: {
                     curve: 'smooth'
                 },
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                labels: purchaseMonthData,
                 markers: {
                     size: 0
                 },
@@ -267,16 +273,7 @@
                                 color: "black"
                             }
                         },
-                    },
-                    {
-                        opposite: true,
-                        title: {
-                            text: 'Sales Orders',
-                            style: {
-                                color: "black"
-                            }
-                        },
-                    },
+                    },                   
                 ],
                 tooltip: {
                     shared: true,
@@ -284,7 +281,7 @@
                 },
                 legend: {
                     labels: {
-                        colors: ["#ff0000", "#00ff00"]
+                        colors: ["#ff0000"]
                     }
                 }
             };

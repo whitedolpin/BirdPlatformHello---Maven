@@ -30,7 +30,7 @@
   <body>
     <header class="header">
       <a href="home.html" class="logo">
-        <i class="ri-store-2-line"></i> Pet.Hello | Pet Hero
+          <i class="ri-store-2-line"></i> Pet.Hello | ${sessionScope.SHOPEDITPRODUCT.shopName}
       </a>
 
    

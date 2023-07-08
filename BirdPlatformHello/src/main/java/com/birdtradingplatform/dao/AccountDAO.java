@@ -141,7 +141,7 @@ public class AccountDAO {
             con = DBHelper.makeConnection();
             if (con != null) {
                 String sql = "UPDATE Account "
-                        + "SET isDeleted = 1"
+                        + "SET isDeleted = true"
                         + "WHERE email = ?;";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, user.getEmail());
@@ -309,7 +309,44 @@ public class AccountDAO {
         return result;
     }
 
-    public Boolean DeleteUser(String gmail)
+  public Boolean DeleteUser(int ID)
+            throws ClassNotFoundException, SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        Boolean result = false;
+        try {
+            //1. connect BD
+            con = DBHelper.makeConnection();
+            //2. write sql 
+            if (con != null) {
+                String sql = "delete from Account where accountID like ?";
+                //3. create stm
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, ID);
+
+                //4.excute stm
+                int row = stm.executeUpdate();
+                //5.process result 
+                if (row > 0) {
+                    result = true;
+                }
+            } else {
+
+            }
+
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return result;
+    }
+
+  public Boolean DeleteUserByGmail(String gmail)
             throws ClassNotFoundException, SQLException, NamingException {
         Connection con = null;
         PreparedStatement stm = null;

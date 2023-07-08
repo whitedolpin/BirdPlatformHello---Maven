@@ -8,8 +8,10 @@ com\birdtradingplatform\model\Product.class
 com\birdtradingplatform\shop\controller\shopSearchProductController.class
 com\birdtradingplatform\controller\GetKeyToResetPass.class
 com\birdtradingplatform\utils\Utils.class
+com\birdtradingplatform\model\ResponseFeedback.class
 com\birdtradingplatform\controller\UpdateNewPass.class
 com\birdtradingplatform\controller\CreateCodeController1.class
+com\birdtradingplatform\shop\controller\ShopFilterFeedbackController.class
 com\birdtradingplatform\dao\CustomerDAO.class
 com\birdtradingplatform\model\OrderDetail.class
 com\birdtradingplatform\controller\ResetPass.class
@@ -19,6 +21,7 @@ com\birdtradingplatform\admin\controller\DeleteProductController.class
 com\birdtradingplatform\model\Item.class
 com\birdtradingplatform\model\Staff.class
 com\birdtradingplatform\shop\controller\GetDataforUpdateProduct.class
+com\birdtradingplatform\shop\controller\GetFeedbackController.class
 com\birdtradingplatform\controller\ShopInfoController.class
 com\birdtradingplatform\controller\FeedbackController.class
 com\birdtradingplatform\dao\FeedbackDAO.class
@@ -41,6 +44,7 @@ com\birdtradingplatform\dao\ProductDAO.class
 com\birdtradingplatform\dao\StaffDAO.class
 com\birdtradingplatform\model\Cart.class
 com\birdtradingplatform\model\Account.class
+com\birdtradingplatform\shop\controller\ShopFilterFeedbackInBox.class
 com\birdtradingplatform\controller\CreateCodeController.class
 com\birdtradingplatform\admin\controller\GetDataForAdminProfile.class
 com\birdtradingplatform\model\Order.class

@@ -21,12 +21,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
   --box-shadow: 0.2rem 3rem var(--color-shadow);
 }
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    -webkit-transition: .2s linear;
+    transition: .2s linear;
+}
 body {
   margin: 0;
   padding: 0;
   background-color: #f0e8e4;
   color: #9e9ea4;
-  font-family: "Montserrat", sans-serif;
 }
 
 .material-icons-outlined {
@@ -117,9 +129,10 @@ body {
   color: #cc2162;
 }
 .navbar-list li a{
-    color: rgb(94 71 62);
+    color: #000;
     font-size: 20px;
     text-align: center;
+    text-decoration: none;
 }
 .date{
   background-color: var(--color-primary);

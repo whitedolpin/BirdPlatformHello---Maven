@@ -57,8 +57,40 @@ public class OrderDAO {
     public Map<Integer, String> getSaleMap() {
         return saleMap;
     }
-    
-    
+
+ public Map<Integer, String> getThePurchaseDashboardForAdmin() throws ClassNotFoundException, SQLException{
+         Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Order result = null;
+       Map<Integer, String> purchaseOfAdmin = new HashMap<>();
+        try {
+            con = DBHelper.makeConnection();
+            if (con != null) {
+                String sql = "SELECT DATENAME(MONTH, orderDate) AS [Month], COUNT(orderID) AS [Number of Orders]"
+                              + " FROM [BirdPlatform].[dbo].[Order]"
+                              + " GROUP BY DATENAME(MONTH, orderDate)";
+                stm = con.prepareStatement(sql);
+                rs = stm.executeQuery();
+                while (rs.next()) {                    
+                    String monthName = rs.getString("Month");
+                    int numberOfPurchase = rs.getInt("Number of Orders");        
+                    purchaseOfAdmin.put(numberOfPurchase, monthName);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return purchaseOfAdmin;
+    }
     public List<Order> getIncomeOfTheShop(int id) throws ClassNotFoundException, SQLException{
         Connection con = null;
         PreparedStatement stm = null;

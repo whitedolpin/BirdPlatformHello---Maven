@@ -7,22 +7,27 @@ package com.birdtradingplatform.admin.controller;
 import com.birdtradingplatform.dao.AccountDAO;
 import com.birdtradingplatform.model.Account;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Minh Quan
  */
+@WebServlet(name = "DeleteAccountController", urlPatterns = {"/DeleteAccountController"})
 public class DeleteAccountController extends HttpServlet {
- private final String RESULT_PAGE = "AccountManageController";
+
+    private final String RESULT_PAGE = "AccountManageController";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,13 +38,22 @@ public class DeleteAccountController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException {
-      String email = request.getParameter("email");
-      String url = RESULT_PAGE;
+            throws ServletException, IOException, ClassNotFoundException, SQLException, NamingException {
+        System.out.println("accountID ở delete ne: " + request.getParameter("AccID"));
+        int AccID = Integer.parseInt(request.getParameter("AccID"));
+        HttpSession session = request.getSession();
+
+        String url = RESULT_PAGE;
         try {
+
             AccountDAO dao = new AccountDAO();
-            Account account = new Account(email, null);
-            dao.deleteUser(account);
+            Boolean result = dao.DeleteUser(AccID);
+            if (result) {
+                Account User = (Account) session.getAttribute("dto");
+                if (User.getAccountID() == AccID) {
+                    url = "GetDataForHomePage";
+                }
+            }
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
@@ -58,13 +72,15 @@ public class DeleteAccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     try {
-         processRequest(request, response);
-     } catch (ClassNotFoundException ex) {
-         Logger.getLogger(DeleteAccountController.class.getName()).log(Level.SEVERE, null, ex);
-     } catch (SQLException ex) {
-         Logger.getLogger(DeleteAccountController.class.getName()).log(Level.SEVERE, null, ex);
-     }
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DeleteAccountController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteAccountController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(DeleteAccountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -78,13 +94,15 @@ public class DeleteAccountController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     try {
-         processRequest(request, response);
-     } catch (ClassNotFoundException ex) {
-         Logger.getLogger(DeleteAccountController.class.getName()).log(Level.SEVERE, null, ex);
-     } catch (SQLException ex) {
-         Logger.getLogger(DeleteAccountController.class.getName()).log(Level.SEVERE, null, ex);
-     }
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DeleteAccountController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteAccountController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(DeleteAccountController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

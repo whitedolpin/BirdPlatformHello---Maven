@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -81,13 +82,16 @@ public class AdminDashboardController extends HttpServlet {
                  income = orders.get(i).getTotal();
             }
            double incomeOfPlatform = income * 0.5;
-           
+           Map<Integer, String> getPurchaseMap = orderDAO.getThePurchaseDashboardForAdmin();
+   
+          
+          
             request.setAttribute("INCOME", incomeOfPlatform);
             request.setAttribute("ORDERS", numberOfOrders);
             request.setAttribute("DATA", numberOfUser);
             request.setAttribute("TOPQUANTITY", orderDetailList);
             request.setAttribute("TOPPRODUCT", list);
-
+            request.setAttribute("PURCHASEMAP", getPurchaseMap);
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

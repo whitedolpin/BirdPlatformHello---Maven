@@ -47,12 +47,12 @@ public class DeleteAcc extends HttpServlet {
         
         if(gmail != null){
             System.out.println("Gmail in google");
-            dao.DeleteUser(gmail);
+            dao.DeleteUserByGmail(gmail);
         }
         
         if(dto != null){
             System.out.println("Gmail in DTO");
-            dao.DeleteUser(dto.getEmail());
+            dao.DeleteUserByGmail(dto.getEmail());
         }
         
         response.sendRedirect("Homepage.html");

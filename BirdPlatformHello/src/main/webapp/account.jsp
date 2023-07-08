@@ -1,155 +1,144 @@
-<%-- 
-    Document   : account
-    Created on : May 26, 2023, 8:34:39 PM
-    Author     : Minh Quan
---%>
-
+<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-        <!-- Material Icons -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-            />
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossorigin="anonymous"
-            />
-        <link rel="stylesheet" href="css/base.css"/>
-        <link rel="stylesheet" href="css/account.css"/>
-        <link rel="stylesheet" href="css/responsive.css"/>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Page Title</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' type='text/css' media='screen' href='css/admin.css'>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src='js/script.js'></script>
+        <script src='js/DeleteAcc.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     </head>
-    <body>
-        <div class="grid-container">
-            <!-- Header -->
+
+    <body class="db-shop">
+        <div class="grid-container"> 
             <header class="header">
                 <jsp:include page="header.jsp"></jsp:include>
-                </header>      
+                </header>
                 <!-- End Header -->
 
                 <!-- Sidebar -->
                 <aside id="sidebar">
                 <jsp:include page="sidebar.jsp"></jsp:include>
                 </aside>
-                <!-- End Sidebar -->
-
-                <!-- Main -->
                 <main class="main-container">
-                    <div class="main-title">
-                        <h2>Account Management</h2>
-                    </div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12 right">
-                                <div class="detail">
-                                    <div class="detail-title" style="display: flex; justify-content: flex-end">
-                                        <div style="display: flex; ">
-                                            <div class="search">
-                                                <form action="adminAccountSearchController" method="POST">
-                                                    <input class="search-input" type="text" placeholder="Search by name" name="txtSearch" value="${txtSearch}"/>
-                                                <button type="submit" class="search-btn">Search</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>       
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class="table-thead">
-                                            <tr>
-                                                <th class="text-center" scope="col">ID</th>
-                                                <th class="text-center" scope="col">Email</th>
-                                                <th class="text-center" scope="col">Full Name</th>
-                                                <th class="text-center" scope="col">Registed day</th>
-                                                <th class="text-center" scope="col">Role</th>
-                                                <th class="text-center" scope="col">Update</th>
-                                                <th class="text-center" scope="col">Delete</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:set var="userList" value="${requestScope.USER}"/>
-                                            <c:set var="roleList" value="${requestScope.ROLES}" />
-                                            <c:if test="${not empty userList}">
-                                                <c:forEach var="user" items="${userList}">
-                                                <form action="UpdateAccountServlet" method="POST">
-                                                    <tr>
-                                                        <td class="text-center" >
-                                                            ${user.accountID}
-                                                        </td>
-                                                        <td class="text-center" >${user.email}
-                                                            <input type="hidden" name="email" value="${user.email}"/>
-                                                        </td>
-                                                        <td class="text-center" >${user.username}</td>
-                                                        <td class="text-center" >                            
-                                                            ${user.regisDate}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <c:if test="${not empty roleList}">
-                                                                <select class="input-edit" name="roleId">
-                                                                    <c:forEach var="role" items="${roleList}">
-                                                                        <option 
+                    <div class="col-md-10 col-sm-12" id="main" style="padding: 3%; width: 100%">
+                        <h3 style=" margin-bottom: 2%; color: #000">Accounts Management</h3>
+                        <div class="container product-box">
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col-10">
+                                    <form id="product-search" action="adminAccountSearchController" method="POST" >
+                                        <input type="search" name="txtSearch" id="search" placeholder="Search Product" value="${txtSearch}"/>
+                                    <button type="submit">
+                                        Search
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="list table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" scope="col">ID</th>
+                                            <th class="text-center" scope="col">Email</th>
+                                            <th class="text-center" scope="col">Full Name</th>
+                                            <th class="text-center" scope="col">Registered Date</th>
+                                            <th class="text-center" scope="col">Role</th>
+                                            <th class="text-center" scope="col">Update</th>
+                                            <th class="text-center" scope="col">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:set var="userList" value="${requestScope.USER}"/>
+                                        <c:set var="roleList" value="${requestScope.ROLES}" />
+                                        <c:if test="${not empty userList}">
+                                            <c:forEach var="user" items="${userList}">
+                                            <form action="UpdateAccountServlet" method="POST">
+                                                <tr>
+                                                    <td class="text-right" >
+                                                        ${user.accountID}
+                                                    </td>
+                                                    <td class="text-left" >${user.email}
+                                                        <input type="hidden" name="email" value="${user.email}"/>
+                                                    </td>
+                                                    <td class="text-left" >${user.username}</td>
+                                                    <td class="text-center" >                            
+                                                        ${user.regisDate}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <c:if test="${not empty roleList}">
+                                                            <select  name="roleId">
+                                                                <c:forEach var="role" items="${roleList}" varStatus="Counter">
+                                                                    <option value="${Counter.count}"
                                                                             <c:if test="${role.role == user.role}">
                                                                                 selected="selected"
                                                                             </c:if> >                                                                    
-                                                                            ${role.roleName}</option>
-                                                                        </c:forEach>                                                                                                             
-                                                                </select>
-                                                            </c:if>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <button type="submit" class="btn btn-sm btn-neutral">
-                                                                <span class="material-symbols-outlined">
-                                                                    sync
-                                                                </span></button>
-                                                        </td>
-                                                        <td class="text-center">                                                         
+                                                                        ${role.roleName}</option>
+                                                                    </c:forEach>                                                                                                             
+                                                            </select>
+                                                        </c:if>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button type="submit" class="btn btn-sm btn-neutral">
+                                                            <span class="material-symbols-outlined">
+                                                                sync
+                                                            </span></button>
+                                                    </td>
+                                                <input type="hidden" name="AccID" value="${user.accountID}"/>
+                                            </form>
+                                            <td class="text-center"> 
 
-                                                            <a
-                                                                href="${deleteaccount}"
-                                                                class="btn btn-sm btn-square btn-neutral text-danger-hover"
-
-                                                                >
-                                                                <span class="material-symbols-outlined">
-                                                                    delete
-                                                                </span>
-
-                                                        </td>
-                                                    </tr>
+                                                <form action="DeleteAccountController" method="get">
+                                                    <input type="hidden" name="AccID" value="${user.accountID}"/>
+                                                     
+                                                        <span onclick="showDeleteAccForm()" class="material-symbols-outlined">
+                                                            delete
+                                                        </span>
+                                                    
+                                                    <div id="AddFBform"> <!-- comment -->
+                                                        <h2>
+                                                            Do you want to delete account ${user.username}  ?
+                                                            </h2>
+                                                            
+                                                            <span class="Buton" onclick="HiddenDeleteAccForm()">
+                                                                Cancel
+                                                            </span>
+                                                            
+                                                            <button class="Buton"  type="submit">
+                                                                Delete 
+                                                            </button>
+                                                        
+                                                    
+                                                    </div>
 
                                                 </form>
 
-                                            </c:forEach>  
 
-                                        </c:if>
-                                        </tbody>
-                                    </table>
+                                            </td>
+                                            </tr>
 
-                                </div>
 
-                                <!-- <div class="card-footer border-0 py-5">
-                                    <span class="text-muted text-sm"
-                                      >Showing 10 items out of 250 results found</span
-                                    >
-                                  </div> -->                    
+                                        </c:forEach>  
+
+                                    </c:if>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </main>
         </div>
     </body>
+
 </html>

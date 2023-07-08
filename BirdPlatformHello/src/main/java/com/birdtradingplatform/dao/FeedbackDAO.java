@@ -5,6 +5,7 @@
 package com.birdtradingplatform.dao;
 
 import com.birdtradingplatform.model.Account;
+import com.birdtradingplatform.model.Product;
 import com.birdtradingplatform.model.Feedback;
 import com.birdtradingplatform.model.FeedbackDetail;
 import java.sql.Connection;
@@ -20,6 +21,193 @@ import com.birdtradingplatform.utils.DBHelper;
  * @author leyen
  */
 public class FeedbackDAO {
+    public ArrayList getShopFeedbackInBox(int shopID, String field, String value) throws ClassNotFoundException, SQLException{
+        ArrayList list = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Product result = null;
+        
+        con = DBHelper.makeConnection();
+        if (con != null) {
+            try {
+                String sql = "select *  " +
+                    "from Feedback,Product where Feedback.productID in " +
+                    " (select productID from Product where shopID like ?) "
+                        + " and Feedback.productID = Product.productID and "
+                        + field+ " like ? " ;
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, shopID);
+                stm.setString(2,"%"+  value +"%");
+                rs = stm.executeQuery();
+                while (rs.next()) {                    
+                  System.out.println(rs.getInt("feedbackID"));
+                    int ID = rs.getInt("feedbackID");
+                    String img = rs.getString("img");
+                    int star = rs.getInt("star");
+                    String detail = rs.getString("detail");
+                    int productID = rs.getInt("productID");
+                    int accountID = rs.getInt("accID");
+                    String date = rs.getString("productName");
+                    Feedback save = new Feedback(productID, img, star, detail, productID, ID, date);
+                    list.add(save);    
+                    System.out.println("FB ID"+save.getFeedbackID() + "FB detail" + save.getDetail());
+                }
+            } finally {
+               if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            } 
+            }
+        }
+        return list;        
+    }
+    
+    public ArrayList getAllShopFeedbackFilterbyStar(int shopID, int star) throws ClassNotFoundException, SQLException{
+        ArrayList list = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Product result = null;
+        
+        con = DBHelper.makeConnection();
+        if (con != null) {
+            try {
+                String sql = "select *  " +
+                    "from Feedback,Product where Feedback.productID in " +
+                    " (select productID from Product where shopID like ? ) "
+                        + " and Feedback.productID= Product.productID  and feedback.star = ?" ;
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, shopID);
+                stm.setInt(2, star);
+                rs = stm.executeQuery();
+                while (rs.next()) {                    
+                  System.out.println(rs.getInt("feedbackID"));
+                    int ID = rs.getInt("feedbackID");
+                    String img = rs.getString("img");
+                    String detail = rs.getString("detail");
+                    int productID = rs.getInt("productID");
+                    int accountID = rs.getInt("accID");
+                    String date = rs.getString("productName");
+                    Feedback save = new Feedback(productID, img, star, detail, productID, ID, date);
+                    list.add(save);    
+                    System.out.println("FB ID"+save.getFeedbackID() + "FB detail" + save.getDetail());
+                }
+            } finally {
+               if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            } 
+            }
+        }
+        return list;        
+    }
+    
+    
+    
+    
+    public ArrayList getAllShopFeedbackNotRespone(int shopID) throws ClassNotFoundException, SQLException{
+        ArrayList list = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Product result = null;
+        
+        con = DBHelper.makeConnection();
+        if (con != null) {
+            try {
+                String sql = "select *  " +
+                    "from Feedback,Product where feedbackID not in " +
+                    "(select feedbackID from FeedbackResponse) " +
+                    "and Feedback.productID in " +
+                    " (select productID from Product where shopID like ?) "
+                        + " and Feedback.productID= Product.productID " ;
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, shopID);
+                rs = stm.executeQuery();
+                while (rs.next()) {                    
+                  System.out.println(rs.getInt("feedbackID"));
+                    int ID = rs.getInt("feedbackID");
+                    String img = rs.getString("img");
+                    int star = rs.getInt("star");
+                    String detail = rs.getString("detail");
+                    int productID = rs.getInt("productID");
+                    int accountID = rs.getInt("accID");
+                    String date = rs.getString("productName");
+                    Feedback save = new Feedback(productID, img, star, detail, productID, ID, date);
+                    list.add(save);    
+                    System.out.println("FB ID"+save.getFeedbackID() + "FB detail" + save.getDetail());
+                }
+            } finally {
+               if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            } 
+            }
+        }
+        return list;        
+    }
+    
+     public ArrayList getAllShopFeedback(int shopID) throws ClassNotFoundException, SQLException{
+        ArrayList list = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Product result = null;
+        
+        con = DBHelper.makeConnection();
+        if (con != null) {
+            try {
+                String sql = "select *  " +
+                    "from Feedback,Product where Feedback.productID in " +
+                    " (select productID from Product where shopID like ?) "
+                        + " and Feedback.productID= Product.productID " ;
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, shopID);
+                rs = stm.executeQuery();
+                while (rs.next()) {                    
+                  System.out.println(rs.getInt("feedbackID"));
+                    int ID = rs.getInt("feedbackID");
+                    String img = rs.getString("img");
+                    int star = rs.getInt("star");
+                    String detail = rs.getString("detail");
+                    int productID = rs.getInt("productID");
+                    int accountID = rs.getInt("accID");
+                    String date = rs.getString("productName");
+                    Feedback save = new Feedback(productID, img, star, detail, productID, ID, date);
+                    list.add(save);    
+                    System.out.println("FB ID"+save.getFeedbackID() + "FB detail" + save.getDetail());
+                }
+            } finally {
+               if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            } 
+            }
+        }
+        return list;        
+    }
+
 
     public int getFeedbackCountOfShop(int shopID) throws SQLException {
         Connection con = null;

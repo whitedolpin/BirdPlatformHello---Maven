@@ -47,7 +47,7 @@
                 </a>
             </li>
             <li class="sidebar-list-item">
-                <a href="shopFeedback.jsp">
+                <a href="GetFeedbackController">
                     <span class="material-symbols-outlined">
                         chat
                     </span> Feedback
